@@ -106,6 +106,9 @@ main{
     opacity: 1;
     transition: .5s;
 }
+.cocktails{
+
+}
 @media only screen and (min-width: 600px) {
     .navbar{
         top: 0;
@@ -119,7 +122,7 @@ main{
         filter: opacity(1);
         display: block;
     }
-    .navbar:hover .dropdown-content{
+    .cocktails:hover .dropdown-content{
 
         filter: opacity(1) blur(0px);
         display: block;
