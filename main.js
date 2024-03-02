@@ -1,16 +1,21 @@
 
 
 $(function () {
-
+    let navWidth = 5
 
     $('.cocktails').on('mouseover', function() {
-        $('.navbar').css('width', '20rem')
+        navWidth=13
+    })
+    $('.cocktails').on('mouseout', function() {
+
     })
     $('.navbar').on('mouseover', function() {
-        $('.navbar').css('width', '12rem')
+        navWidth+=7
+        $('.navbar').css('width', `${navWidth}rem`)
     });
     $('.navbar').on('mouseout', function() {
-        $('.navbar').css('width', '5rem')
+        navWidth=5
+        $('.navbar').css('width', `${navWidth}rem`)
     });
 
 

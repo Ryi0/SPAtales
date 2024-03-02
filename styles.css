@@ -185,12 +185,12 @@ main {
     filter: opacity(0) blur(30px);
     position: absolute;
     background-color: #790c30;
-    min-width: 160px;
+    width: 9.5rem; /*Keep this synced too.*/
     transition: 600ms;
     z-index: 1;
     pointer-events: none;
 
-    left: 100%;
+    left: 11rem; /*Keep this synced with values in main.js file for the hovering effect to avoid clipping*/
 }
 
 .dropdown-content a {
