@@ -120,6 +120,8 @@ main{
         display: block;
     }
     .navbar:hover .dropdown-content{
+
+        filter: opacity(1) blur(0px);
         display: block;
     }
 }
@@ -146,11 +148,13 @@ main{
     }
 }
 .dropdown-content {
-    display: none;
+    filter: opacity(0) blur(30px);
+
     position: absolute;
     background-color: #790c30;
     min-width: 160px;
     z-index: 1;
+    transition: 600ms;
   }
   
   .dropdown-content a {
