@@ -1,4 +1,4 @@
-:root{
+:root {
     font-family: "Montserrat Alternates", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -9,49 +9,56 @@
     --secondary: #790c30;
     --accent: #00ff8c;
 }
-body{
+
+body {
     color: black;
     background-color: #ffeed6;
     margin: 0;
     padding: 0;
 }
-body::-webkit-scrollbar{
+
+body::-webkit-scrollbar {
     width: 0.70rem;
     background: #ffeed6;
 }
-body::-webkit-scrollbar-track{
+
+body::-webkit-scrollbar-track {
 
     background: #181202;
 }
-body::-webkit-scrollbar-thumb{
+
+body::-webkit-scrollbar-thumb {
     border-radius: 100vh;
     background: #790c30;
 }
-body::-webkit-scrollbar-thumb:hover{
+
+body::-webkit-scrollbar-thumb:hover {
     border-radius: 100vh;
     background: #ffeed6;
     border: .2ch solid #790c30;
 }
-main{
+
+main {
 
     margin-left: 5rem;
     padding: 1rem;
 }
 
-
-.navbar{
+.navbar {
     position: fixed;
     transition: 400ms ease;
     background-color: var(--secondary);
 }
-.nav-item{
+
+.nav-item {
     width: 100%;
 }
-.nav-item:last-child{
-    margin-top: auto;
 
+.nav-item:last-child {
+    margin-top: auto;
 }
-.navbar-nav{
+
+.navbar-nav {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -60,45 +67,47 @@ main{
     align-items: center;
     height: 100%;
 }
-.nav-link{
 
-
+.nav-link {
     filter: hue-rotate(55deg) saturate(.25) brightness(6.5) opacity(.95);
     display: flex;
     align-items: center;
     height: 5rem;
     text-decoration: none;
-    transition: 500ms ;
+    transition: 500ms;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     filter: hue-rotate(30deg) saturate(.75) brightness(8) opacity(1);
 }
 
-.link-text{
+.link-text {
+    pointer-events: none;
+    display: block;
     color: #790c30;
-    filter: opacity(0) blur(30px)   ;
+    filter: opacity(0) blur(30px);
     margin-left: 1rem;
     transition: .5s;
 }
-.link-text:hover.dropdown-content{display:block;}
-.nav-link svg{
+
+/*.link-text:hover.dropdown-content{*/
+/*    display:block;*/
+/*}*/
+.nav-link svg {
     /*filter: brightness(800%);*/
     fill: #790c30;
     min-width: 2rem;
     margin: 0 1.5rem;
     width: 2rem;
-
 }
 
-
-.page{
+.page {
     margin: 0;
     display: none;
     transition: .5s;
 }
+
 .active {
-    margin: 0;
     margin: 0;
     display: block;
     background-color: #181202;
@@ -106,65 +115,85 @@ main{
     opacity: 1;
     transition: .5s;
 }
-.cocktails{
 
+.cocktails {
+    pointer-events: none;
+    border: 5px solid black;
 }
+
 @media only screen and (min-width: 600px) {
-    .navbar{
+    .navbar {
+        padding-right: .5rem;
         top: 0;
         width: 5rem;
         height: 100vh;
+
     }
-    .navbar:hover{
+
+    .navbar:hover {
         width: 15rem;
     }
-    .navbar:hover .link-text{
+
+    .navbar:hover .link-text {
         filter: opacity(1);
         display: block;
     }
-    .cocktails:hover .dropdown-content{
 
+    .cocktails:hover .dropdown-content {
+        pointer-events: auto;
         filter: opacity(1) blur(0px);
         display: block;
+    }
+
+    .navbar:hover .cocktails {
+        pointer-events: revert;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .navbar .link-text{
+    .navbar .link-text {
         filter: opacity(1);
         display: none;
     }
-    .navbar{
+
+    .navbar {
         bottom: 0;
         width: 100vh;
         height: 5rem;
     }
-    .navbar-nav{
+
+    .navbar-nav {
         flex-direction: row;
     }
-    .nav-link{
+
+    .nav-link {
         justify-content: center;
     }
 
-    main{
-        margin: 0   ;
+    main {
+        margin: 0;
     }
 }
+
 .dropdown-content {
     filter: opacity(0) blur(30px);
-
     position: absolute;
     background-color: #790c30;
     min-width: 160px;
-    z-index: 1;
     transition: 600ms;
-  }
-  
-  .dropdown-content a {
+    z-index: 1;
+    pointer-events: none;
+}
+
+.dropdown-content a {
+
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
-  .dropdown-content a:hover {background-color: #ddd;}
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
   
