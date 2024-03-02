@@ -180,7 +180,7 @@ main {
         margin: 0;
     }
 }
-.largerText{
+.largerChevron{
     position: absolute;
     bottom: -40%;
     font-size: 2rem;
