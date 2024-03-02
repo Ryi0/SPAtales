@@ -20,9 +20,8 @@ body::-webkit-scrollbar{
     background: #ffeed6;
 }
 body::-webkit-scrollbar-track{
-    margin-block: 3vh;
-    border-radius: 100vh;
-    background: #ffeed6;
+
+    background: #181202;
 }
 body::-webkit-scrollbar-thumb{
     border-radius: 100vh;
@@ -94,10 +93,13 @@ main{
 
 
 .page{
+    margin: 0;
     display: none;
     transition: .5s;
 }
 .active {
+    margin: 0;
+    margin: 0;
     display: block;
     background-color: #181202;
     color: white;
