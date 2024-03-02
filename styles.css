@@ -115,7 +115,9 @@ main {
     opacity: 1;
     transition: .5s;
 }
+.cockWrapper{
 
+}
 .cocktails {
     pointer-events: none;
     border: 5px solid black;
@@ -130,10 +132,12 @@ main {
 
     }
 
-    .navbar:hover {
-        width: 15rem;
+    /*.navbar:hover {*/
+    /*    width: 15rem;*/
+    /*}*/
+    .cocktails{
+        display: inline-grid;
     }
-
     .navbar:hover .link-text {
         filter: opacity(1);
         display: block;
@@ -169,7 +173,9 @@ main {
     .nav-link {
         justify-content: center;
     }
-
+    .cocktails {
+        pointer-events: revert;
+    }
     main {
         margin: 0;
     }
@@ -183,6 +189,8 @@ main {
     transition: 600ms;
     z-index: 1;
     pointer-events: none;
+
+    left: 100%;
 }
 
 .dropdown-content a {

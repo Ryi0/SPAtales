@@ -1,6 +1,19 @@
 
 
 $(function () {
+
+
+    $('.cocktails').on('mouseover', function() {
+        $('.navbar').css('width', '20rem')
+    })
+    $('.navbar').on('mouseover', function() {
+        $('.navbar').css('width', '12rem')
+    });
+    $('.navbar').on('mouseout', function() {
+        $('.navbar').css('width', '5rem')
+    });
+
+
     // Initially show home page
     $('.page').removeClass('active');
     $('#home').addClass('active');
@@ -13,3 +26,4 @@ $(function () {
         $(targetPage).addClass('active');
     });
 });
+
