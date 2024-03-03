@@ -39,13 +39,12 @@ $(function () {
 });
 
 function openNav() {
-    document.getElementById("categories").style.width = "50vw";
-    document.getElementById("navigator").style.marginLeft = "50vw"
-    document.getElementById("categories").style.left = "0";
+    $("#categories").css("width", "50vw");
+    $("#navigator").css("marginLeft", "50vw");
+    $("#categories").css("left", "0");
 }
 function closeNav() {
-
-    document.getElementById("categories").style.width = "0";
-    document.getElementById("navigator").style.marginLeft = "0"
-    document.getElementById("categories").style.right = "-100vw";
+    $("#categories").css("width", "0");
+    $("#navigator").css("marginLeft", "0");
+    $("#categories").css("right", "-100vw");
 }

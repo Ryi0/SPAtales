@@ -170,18 +170,16 @@ main {
 }
 
 .categoriesButton{
-
+    background: #ffeed6;
+    border: 3px solid #790c30;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
 }
 .categoriesBarCloseBtn{
-
     cursor: pointer;
     color: #ffeed6;
     font-size: 1.5rem;
-    position: relative;
-    top: 50%;
-    left: 90%;
-    background-color: rgba(121, 12, 48, 0.13);
-    padding: .25ch .75ch;
     height: fit-content;
     width: fit-content;
     justify-content: center;
@@ -191,16 +189,62 @@ main {
 .categoriesBarCloseBtn:hover{
     background-color: #790c30;
 }
+
 .categoriesBar{
     right : -100vw;
     transition: 450ms;
     position: fixed;
-    color: #00ff8c;
+    color: #790c30;
     background-color: #181202;
     height: 100vh;
     width: 5px;
 }
 
+.AllDrinkCategories {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+    /* flex-flow: column nowrap; */
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+
+    background-color: transparent;
+    height: 100%;
+    padding: 0;
+    gap: 5px;
+
+}
+
+.AllDrinkCategories > div{
+
+
+}
+.katBarWrapper{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: transparent;
+    height: 100%;
+    padding: 0;
+    gap: 5px;
+}
+
+.katBarWrapper>div{
+    background: transparent;
+    border-radius: 5px;
+    padding: 8px;
+}
+.CatsInAWrap {
+    position: relative;
+    /* flex:1 1 auto; */
+    flex-grow:1;
+    align-self:stretch;
+}
 @media only screen and (min-width: 600px) {
     .navbar {
         padding-right: .5rem;
@@ -240,7 +284,7 @@ main {
 
     .navbar {
         bottom: 0;
-        width: 100vh;
+        width: 100vw;
         height: 5rem;
     }
 
