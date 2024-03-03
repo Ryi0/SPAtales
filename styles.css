@@ -284,6 +284,30 @@ main {
 }
 
 
+.cocktailsContent{
+    display: flex;
+
+    justify-content: flex-start;
+    align-items: stretch;
+    /* flex-flow: column nowrap; */
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+
+
+    height: 100%;
+    padding: 15px;
+    gap: 5px;
+}
+
+.cocktailsData{
+    display: grid;
+    flex-grow:1;
+}
+.cocktailsDataDrink{
+    border: 1px solid red;
+ }
+
 @media only screen and (min-width: 600px) {
     .navbar {
         padding-right: .5rem;
