@@ -49,6 +49,7 @@ main {
 }
 
 .navbar {
+    z-index: 100;
     position: fixed;
     transition: 400ms ease;
     background-color: var(--secondary);
@@ -306,12 +307,24 @@ main {
     gap: 5px;
 }
 .cocktailsImage{
+    position: relative;
+    display: block;
+    filter: brightness(90%);
     user-select: none;
-    width: 5rem;
-    height: 5rem;
+    width: 7rem;
+    height: 7rem;
+    transition: 300ms;
+}
+.cocktailsImage:hover{
+    filter: brightness(100%);
 }
 
+
 .cocktailsDataDrink{
+    z-index: 0;
+    justify-content: center;
+    text-align: center;
+    padding: 1ch;
     cursor: pointer;
     font-size: .8rem;
     p{
@@ -320,9 +333,10 @@ main {
     transition: 175ms ease-out;
  }
 .cocktailsDataDrink:hover{
-    background-color: #0b0b0c;
+    background-color: rgba(11, 11, 12, 0.69);
     color: #ffeed6;
 }
+
 @media only screen and (min-width: 600px) {
     .cocktailsData{
         display: grid;
