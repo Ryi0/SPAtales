@@ -198,6 +198,7 @@ main {
     background-color: #181202;
     height: 100vh;
     width: 5px;
+    overflow: hidden;
 }
 
 .AllDrinkCategories {
