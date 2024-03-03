@@ -43,9 +43,14 @@ $(function () {
     })
 });
 
-function appendCategoriesToFlexbox() {
-    const categories = Cats.drinks;
-    console.log(Cats)
+function appendCategoryToFlexbox(displayText) {
+    let $Category = $("<div>",{id:"item","class":"categoriesButton"});
+    $Category.text(displayText);
+    $Category.on('click', ()=>{
+        const categoryClicked = this.textContent;
+        fetchDrinks(categoryClicked)
+    })
+    $("#ADC").append($Category);
 }
 
 /**
@@ -72,7 +77,7 @@ async function fetcher(){
             const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
             const data = await response.json()
             for (const category of data["drinks"]) {
-               Categories.push(category)
+               Categories.push(category["strCategory"])
                 console.log(category["strCategory"])
             }
         }catch (e){
@@ -86,10 +91,14 @@ async function fetcher(){
  */
 async function caller(){
     await fetcher();
-    console.log(Categories)
+    console.log(Categories);
+    for (const category of Categories) {
+        console.log(category)
+        appendCategoryToFlexbox(category)
+    }
 }
 //Works without catch() but i dont like underlines
-caller().catch()
+caller().catch(e2=>console.error(e2))
 
 function openNav() {
     $("#categories").css("width", "50vw");

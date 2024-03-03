@@ -170,6 +170,7 @@ main {
 }
 
 .categoriesButton{
+    white-space: nowrap;
     background: #ffeed6;
     border: 3px solid #790c30;
     border-radius: 5px;
