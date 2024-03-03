@@ -15,6 +15,7 @@ $(function () {
 
         })
         $('.navbar').on('mouseover', function () {
+
             navWidth += 7
             $('.navbar').css('width', `${navWidth}rem`)
         });
@@ -37,3 +38,14 @@ $(function () {
     });
 });
 
+function openNav() {
+    document.getElementById("categories").style.width = "50vw";
+    document.getElementById("navigator").style.marginLeft = "50vw"
+    document.getElementById("categories").style.left = "0";
+}
+function closeNav() {
+
+    document.getElementById("categories").style.width = "0";
+    document.getElementById("navigator").style.marginLeft = "0"
+    document.getElementById("categories").style.right = "-100vw";
+}
