@@ -42,32 +42,54 @@ $(function () {
 
     })
 });
-function appendCategoriesToFlexbox(){
+
+function appendCategoriesToFlexbox() {
     const categories = Cats.drinks;
     console.log(Cats)
 }
-function fetchDrinks(category) {
-    let categories ;
 
+/**
+ *
+ * This function displays the cocktails page no matter what page is
+ * @param category
+ */
+function fetchDrinks(category) {
     console.log(category)
     $('.page').removeClass('active');
     $('#cocktails').addClass('active');
-    const catsAsArray = (()=>{
-        let placeholder;
-        fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list").then(r => r.json()).then(answer=> {
-            placeholder = answer
-        }).then(()=>{
-            console.log(placeholder)
-
-        })
-        console.log(placeholder)
-            return placeholder;
-    })
-    console.log(catsAsArray())
-
     //finish with :
+
     closeNav();
 }
+let Categories = []
+
+/**
+ * this fetches the categories from the db and populates the Categories array
+ * @returns {Promise<void>} Drink categories
+ */
+async function fetcher(){
+        try {
+            const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
+            const data = await response.json()
+            for (const category of data["drinks"]) {
+               Categories.push(category)
+                console.log(category["strCategory"])
+            }
+        }catch (e){
+            console.error("fetcher broke : ", e)
+        }
+}
+
+/**
+ * this permits calling and therefore populating of categories array outside of an async class
+ * @returns {Promise<void>}
+ */
+async function caller(){
+    await fetcher();
+    console.log(Categories)
+}
+//Works without catch() but i dont like underlines
+caller().catch()
 
 function openNav() {
     $("#categories").css("width", "50vw");
