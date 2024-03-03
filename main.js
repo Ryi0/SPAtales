@@ -1,3 +1,4 @@
+
 $(function () {
     let onPhone = false;
     if ($(window).width() < 600) {
@@ -41,12 +42,28 @@ $(function () {
 
     })
 });
-
+function appendCategoriesToFlexbox(){
+    const categories = Cats.drinks;
+    console.log(Cats)
+}
 function fetchDrinks(category) {
-    console.log(category)
+    let categories ;
 
+    console.log(category)
     $('.page').removeClass('active');
     $('#cocktails').addClass('active');
+    const catsAsArray = (()=>{
+        let placeholder;
+        fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list").then(r => r.json()).then(answer=> {
+            placeholder = answer
+        }).then(()=>{
+            console.log(placeholder)
+
+        })
+        console.log(placeholder)
+            return placeholder;
+    })
+    console.log(catsAsArray())
 
     //finish with :
     closeNav();
