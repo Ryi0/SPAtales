@@ -1,4 +1,4 @@
-
+let navOpen = false;
 $(function () {
     let onPhone = false;
     if ($(window).width() < 600) {
@@ -22,6 +22,12 @@ $(function () {
             navWidth = 5
             $('.navbar').css('width', `${navWidth}rem`)
         });
+        $('.navbar-nav li').on('click', (event)=>{
+            if (navOpen) {
+                event.preventDefault();
+                closeNav();
+            }
+        })
     }
 
     // Initially show home page
@@ -47,7 +53,7 @@ function appendCategoryToFlexbox(displayText) {
     let $Category = $("<div>",{id:"item","class":"categoriesButton"});
     $Category.text(displayText);
     $Category.on('click', ()=>{
-        const categoryClicked = this.textContent;
+        const categoryClicked = displayText;
         fetchDrinks(categoryClicked)
     })
     $("#ADC").append($Category);
@@ -101,12 +107,16 @@ async function caller(){
 caller().catch(e2=>console.error(e2))
 
 function openNav() {
+    setTimeout(()=>{
+        navOpen=true;
+    },50) //delay of 50ms so the nav can actually open. Might work if i put nav open later in the code and avoid delay but this is mostly foolproof
     $("#categories").css("width", "50vw");
     $("#navigator").css("marginLeft", "50vw");
     $("#categories").css("left", "0");
 }
 
 function closeNav() {
+    navOpen = false;
     $("#categories").css("width", "0");
     $("#navigator").css("marginLeft", "0");
     $("#categories").css("right", "-100vw");
