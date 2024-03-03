@@ -247,6 +247,43 @@ main {
     flex-grow:1;
     align-self:stretch;
 }
+
+.cocktailsPageCategories{
+    display: flex;
+
+    justify-content: space-evenly;
+    align-items: flex-start;
+    /* flex-flow: row wrap; */
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    background-color: #0b0b0c;
+    height: 100%;
+    padding: 15px;
+    gap: 5px;
+}
+.cocktailsPageCategoriesLinks{
+    border: 2px solid;
+    border-radius: 1ch;
+    padding: .4ch;
+    background-color: #790c30;
+    cursor: pointer;
+    color: #0b0b0c;
+    font-size: .8rem;
+    height: fit-content;
+    width: fit-content;
+    justify-content: center;
+    text-align: center;
+    transition: 450ms;
+}
+.cocktailsPageCategoriesLinks:hover{
+    border-radius: 1rem;
+    background-color: #181202;
+    color:#ffeed6 ;
+}
+
+
 @media only screen and (min-width: 600px) {
     .navbar {
         padding-right: .5rem;

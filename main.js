@@ -51,12 +51,21 @@ $(function () {
 
 function appendCategoryToFlexbox(displayText) {
     let $Category = $("<div>",{id:"item","class":"categoriesButton"});
+    let $Category2 = $("<div>",{id:"item","class":"cocktailsPageCategoriesLinks"})
     $Category.text(displayText);
+    $Category2.text(displayText);
+
     $Category.on('click', ()=>{
         const categoryClicked = displayText;
         fetchDrinks(categoryClicked)
     })
+    $Category2.on('click',()=>{
+        const categoryClicked = displayText;
+        fetchDrinks(categoryClicked);
+    })
+
     $("#ADC").append($Category);
+    $("#CPC").append($Category2);
 }
 
 /**
