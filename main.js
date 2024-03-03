@@ -1,4 +1,5 @@
 let navOpen = false;
+let selectedCategory = "Cocktail";
 $(function () {
     let onPhone = false;
     if ($(window).width() < 600) {
@@ -43,12 +44,12 @@ $(function () {
         $('.page').removeClass('active');
         $(targetPage).addClass('active');
     });
-    $('.AllDrinkCategories').children().on('click', function (event) {
-        const categoryClicked = this.textContent;
-
-        fetchDrinks(categoryClicked)
-
-    })
+    // $('.AllDrinkCategories').children().on('click', function (event) {
+    //     const categoryClicked = this.textContent;
+    //     console.log("ASDASDAS")
+    //     fetchDrinks(categoryClicked)
+    //
+    // })
 });
 /**
  *
@@ -56,16 +57,20 @@ $(function () {
  * @param category
  */
 function fetchDrinks(category) {
+    $("#CD").empty();
     console.log(category)
     $('.page').removeClass('active');
     $('#cocktails').addClass('active');
+    $('#catTitle').text(category)
     //finish with :
-
+    selectedCategory = category;
+    DrinkCaller()
     closeNav();
 }
 
 
 function appendDrinkToGrid(drink){
+
     let $drink = $("<div>", {id:"drinkTile", "class":"cocktailsDataDrink"});
     let $drinkImage = $("<img>", {src:drink[1], alt:"An image of the drink", id:"drinkimage", "class":"cocktailsImage"});
     // $drink.text(drink);
@@ -99,7 +104,7 @@ let Drinks = [];
 async function DrinksFetcher(){
     Drinks = [];
     try {
-        const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail");
+        const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+selectedCategory);
         const data = await response.json()
         for (const drink of data["drinks"]) {
             Drinks.push(Object.values(drink)) //turns object into an array
@@ -110,7 +115,7 @@ async function DrinksFetcher(){
     }
 }
 
-async function DrinkCaller(){
+async function DrinkCaller(categor){
     await DrinksFetcher();
     console.log(Drinks);
     for (const drink of Drinks) {
