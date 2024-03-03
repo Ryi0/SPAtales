@@ -63,10 +63,16 @@ function fetchDrinks(category) {
 
     closeNav();
 }
+
+
 function appendDrinkToGrid(drink){
     let $drink = $("<div>", {id:"drinkTile", "class":"cocktailsDataDrink"});
-    $drink.text( drink);
-
+    let $drinkImage = $("<img>", {src:drink[1], alt:"An image of the drink", id:"drinkimage", "class":"cocktailsImage"});
+    // $drink.text(drink);
+    $drink.append(`<h3>${drink[0]}</h3>`)
+    $drink.append($drinkImage);
+    $drink.append(`<p>Id : ${drink[2]}</p>`)
+    // console.log(drink) //enters as array of 3 elements [0=name,1=img,2=id]
     $("#CD").append($drink);
 }
 
@@ -96,8 +102,8 @@ async function DrinksFetcher(){
         const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail");
         const data = await response.json()
         for (const drink of data["drinks"]) {
-            Drinks.push(Object.values(drink))
-            console.log(Object.values(drink))
+            Drinks.push(Object.values(drink)) //turns object into an array
+           // console.log(Object.values(drink))
         }
     }catch (e) {
         console.error("DrinkFetcherBroke : ",e)
@@ -108,7 +114,7 @@ async function DrinkCaller(){
     await DrinksFetcher();
     console.log(Drinks);
     for (const drink of Drinks) {
-        console.log(drink);
+      //  console.log(drink);
         appendDrinkToGrid(drink)
     }
 }
@@ -126,7 +132,7 @@ async function CategoriesFetcher(){
             const data = await response.json()
             for (const category of data["drinks"]) {
                Categories.push(category["strCategory"])
-                console.log(category["strCategory"])
+               // console.log(category["strCategory"])
             }
         }catch (e){
             console.error("fetcher broke : ", e)

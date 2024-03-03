@@ -299,16 +299,26 @@ main {
     padding: 15px;
     gap: 5px;
 }
-
-.cocktailsData{
-    display: grid;
-    flex-grow:1;
+.cocktailsImage{
+    width: 5rem;
+    height: 5rem;
 }
+
 .cocktailsDataDrink{
+
+    font-size: .8rem;
+    p{
+        font-size: .5em;
+    }
     border: 1px solid red;
  }
 
 @media only screen and (min-width: 600px) {
+    .cocktailsData{
+        display: grid;
+        flex-grow:1;
+        grid-template-columns: auto auto auto;
+    }
     .navbar {
         padding-right: .5rem;
         top: 0;
