@@ -1,8 +1,6 @@
-
-
 $(function () {
     let onPhone = false;
-    if ($(window).width()<600){
+    if ($(window).width() < 600) {
         onPhone = true
     }
 
@@ -36,13 +34,30 @@ $(function () {
         $('.page').removeClass('active');
         $(targetPage).addClass('active');
     });
+    $('.AllDrinkCategories').children().on('click', function (event) {
+        const categoryClicked = this.textContent;
+
+        fetchDrinks(categoryClicked)
+
+    })
 });
+
+function fetchDrinks(category) {
+    console.log(category)
+
+    $('.page').removeClass('active');
+    $('#cocktails').addClass('active');
+
+    //finish with :
+    closeNav();
+}
 
 function openNav() {
     $("#categories").css("width", "50vw");
     $("#navigator").css("marginLeft", "50vw");
     $("#categories").css("left", "0");
 }
+
 function closeNav() {
     $("#categories").css("width", "0");
     $("#navigator").css("marginLeft", "0");
