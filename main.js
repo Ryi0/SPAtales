@@ -307,23 +307,57 @@ async function searchingByLetters(){
     }
     
     function displaySearchResults(results) {
-        const searchResultsContainer = document.getElementById("searchResults");
+        const searchResultsContainer = $("#searchResults");
 
-        searchResultsContainer.innerHTML = "";
-    
-        if (results) {
-            results.forEach(drink => {
-                const resultItem = document.createElement("div");
-                resultItem.textContent = drink.strDrink;
-           
-    
-                searchResultsContainer.appendChild(resultItem);
-            });
-        } else {
-     
-            searchResultsContainer.textContent = "No results found.";
-        }
+    searchResultsContainer.empty(); // Clear previous search results
+
+    if (results) {
+        results.forEach(drink => {
+            const resultItem = $("<div>", {id: "drinkTile", class: "cocktailsDataDrink"});
+            const drinkImage = $("<img>", {src: drink.strDrinkThumb, alt: "An image of the drink", id: "drinkimage", class: "cocktailsImage"});
+            const drinkID = drink.idDrink;
+
+            resultItem.append($("<h3>").text(drink.strDrink));
+            resultItem.append(drinkImage);
+            resultItem.append($("<p>").text(`Id: ${drinkID}`));
+
+            resultItem.on('click',()=>{
+                $.ajax({
+                    url:"https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="+drinkID,
+                    method:"GET",
+                    success:function (response){
+                        console.log(response.drinks[0]);
+                        let drink = response.drinks[0];
+                        $("#title").text(drink.strDrink);
+                        console.log($("#title"))
+                        $("#category").text("Category: " + drink.strCategory);
+                        $("#glassType").text("Glass Type: " + drink.strGlass);
+                        $(".instructionsWrapper p").text(drink.strInstructions);
+                        $("#ingredientsUL").empty();
+                        for (let i = 1; i<=15;i++){
+                            if (drink["strIngredient"+i]) {
+                                let ingredient = drink["strIngredient" + i];
+                                let measure = drink["strMeasure"+i];
+                                $("#ingredientsUL").append(`<li> ${measure} ${ingredient} </li>`)
+                            }
+                        }
+        
+                    },
+                    error: function(xhr, status, error){
+                        console.log("Error: " + error);
+                    }
+                })
+                openInfoRecipe()
+        
+            })
+
+
+            searchResultsContainer.append(resultItem);
+        });
+    } else {
+        searchResultsContainer.text("No results found.");
     }
+}
     
 
 
