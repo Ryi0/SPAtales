@@ -358,7 +358,39 @@ async function searchingByLetters(){
         searchResultsContainer.text("No results found.");
     }
 }
-    
+const apiKey = '66f06076e82d204d025be24d110e10ad';
+const cityName = 'Montreal';
+const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&mode=xml`;
+
+
+const xhr = new XMLHttpRequest();
+
+xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        handleResponse(xhr.responseXML);
+    }
+};
+
+xhr.open('GET', apiUrl, true);
+xhr.send();
+
+//function pour extraire les donnees du xml
+function handleResponse(xml) {
+    const temperature = xml.getElementsByTagName('temperature')[0].getAttribute('value');
+    const weatherDescription = xml.getElementsByTagName('weather')[0].getAttribute('value');
+    const feelsLike=xml.getElementsByTagName('feels_like')[0].getAttribute('value');
+    const city=xml.getElementsByTagName('city')[0].getAttribute('name');
+
+    tempCelcius=Math.ceil(temperature-273.15);
+    feelsLikeCel=Math.ceil(feelsLike-273.15);
+
+    document.getElementById('city').innerText=`Ville: ${city}`;
+    document.getElementById('temperature').innerText = `Temperature: ${tempCelcius}°C`;
+    document.getElementById('weather-description').innerText = `Weather: ${weatherDescription}`;
+    document.getElementById('feelsLike').innerText = `Feels Like: ${feelsLikeCel} C`;
+    console.log(weatherDescription);
+    console.log(temperature);
+}
 
 
 
