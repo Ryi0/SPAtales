@@ -109,7 +109,7 @@ function appendDrinkToGrid(drink){
                 }
 
             },
-            error: function(xhr, status, error){
+            error: function(xhttp, status, error){
                 console.log("Error: " + error);
             }
         })
@@ -343,7 +343,7 @@ async function searchingByLetters(){
                         }
         
                     },
-                    error: function(xhr, status, error){
+                    error: function(xhttp, status, error){
                         console.log("Error: " + error);
                     }
                 })
@@ -363,16 +363,16 @@ const cityName = 'Montreal';
 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&mode=xml`;
 
 
-const xhr = new XMLHttpRequest();
+const xhttp = new XMLHttpRequest();
 
-xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        handleResponse(xhr.responseXML);
+xhttp.onreadystatechange = function () {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+        handleResponse(xhttp.responseXML);
     }
 };
 
-xhr.open('GET', apiUrl, true);
-xhr.send();
+xhttp.open('GET', apiUrl, true);
+xhttp.send();
 
 //function pour extraire les donnees du xml
 function handleResponse(xml) {
