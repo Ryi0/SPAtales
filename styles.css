@@ -1,4 +1,4 @@
-:root{
+:root {
     font-family: "Montserrat Alternates", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -9,49 +9,61 @@
     --secondary: #790c30;
     --accent: #00ff8c;
 }
-body{
+
+body {
     color: black;
     background-color: #ffeed6;
     margin: 0;
     padding: 0;
 }
-body::-webkit-scrollbar{
+
+body::-webkit-scrollbar {
     width: 0.70rem;
     background: #ffeed6;
 }
-body::-webkit-scrollbar-track{
+
+body::-webkit-scrollbar-track {
 
     background: #181202;
 }
-body::-webkit-scrollbar-thumb{
+
+body::-webkit-scrollbar-thumb {
     border-radius: 100vh;
     background: #790c30;
 }
-body::-webkit-scrollbar-thumb:hover{
+
+body::-webkit-scrollbar-thumb:hover {
     border-radius: 100vh;
     background: #ffeed6;
     border: .2ch solid #790c30;
 }
-main{
+
+html{
+    overflow-y:scroll;
+}
+
+main {
 
     margin-left: 5rem;
     padding: 1rem;
 }
 
-
-.navbar{
+.navbar {
+    z-index: 100;
     position: fixed;
     transition: 400ms ease;
     background-color: var(--secondary);
 }
-.nav-item{
+
+.nav-item {
     width: 100%;
 }
-.nav-item:last-child{
-    margin-top: auto;
 
+.nav-item:last-child {
+    margin-top: auto;
 }
-.navbar-nav{
+
+.navbar-nav {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -60,111 +72,402 @@ main{
     align-items: center;
     height: 100%;
 }
-.nav-link{
 
-
+.nav-link {
     filter: hue-rotate(55deg) saturate(.25) brightness(6.5) opacity(.95);
     display: flex;
     align-items: center;
     height: 5rem;
     text-decoration: none;
-    transition: 500ms ;
+    transition: 500ms;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     filter: hue-rotate(30deg) saturate(.75) brightness(8) opacity(1);
 }
 
-.link-text{
+.link-text {
+    pointer-events: none;
+    display: block;
     color: #790c30;
-    filter: opacity(0) blur(30px)   ;
+    filter: opacity(0) blur(30px);
     margin-left: 1rem;
     transition: .5s;
 }
-.link-text:hover.dropdown-content{display:block;}
-.nav-link svg{
+
+/*.link-text:hover.dropdown-content{*/
+/*    display:block;*/
+/*}*/
+.nav-link svg {
     /*filter: brightness(800%);*/
     fill: #790c30;
     min-width: 2rem;
     margin: 0 1.5rem;
     width: 2rem;
-
 }
 
-
-.page{
+.page {
     margin: 0;
     display: none;
     transition: .5s;
 }
+
 .active {
-    margin: 0;
+    width: 100%;
+
     margin: 0;
     display: block;
-    background-color: #181202;
+    background-color: rgba(24, 18, 2, 0.76);
     color: white;
     opacity: 1;
     transition: .5s;
 }
-.cocktails{
+.cockWrapper{
 
 }
+.cocktails {
+    pointer-events: none;
+    /*border: 5px solid black;*/
+}
+
+.largerChevron{
+    position: absolute;
+    bottom: -40%;
+    font-size: 2rem;
+}
+.dropdown-content {
+    filter: opacity(0) blur(30px);
+    position: absolute;
+    background-color: #790c30;
+    width: 9.5rem; /*Keep this synced too.*/
+    transition: 600ms;
+    z-index: 1;
+    pointer-events: none;
+    left: 11rem; /*Keep this synced with values in main.js file for the hovering effect to avoid clipping*/
+}
+
+/*.dropdown-content a {*/
+
+/*    color: #790c30;*/
+/*    padding: 12px 16px;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*    background-color: #ffeed6;*/
+/*}*/
+
+/*.dropdown-content a:hover {*/
+/*    color: #ffeed6;*/
+/*    background-color: #790c30;*/
+
+/*}*/
+.dropdownTile {
+
+    color: #790c30;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background-color: #ffeed6;
+}
+
+.dropdownTile:hover {
+    cursor: pointer;
+    color: #ffeed6;
+    background-color: #790c30;
+
+}
+
+.categoriesButton{
+    white-space: nowrap;
+    background: #ffeed6;
+    border: 3px solid #790c30;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+.categoriesBarCloseBtn{
+    cursor: pointer;
+    color: #ffeed6;
+    font-size: 1.5rem;
+    height: fit-content;
+    width: fit-content;
+    justify-content: center;
+    text-align: center;
+    transition: 450ms;
+}
+.categoriesBarCloseBtn:hover{
+    background-color: #790c30;
+}
+
+.categoriesBar{
+    z-index: 1;
+    right : -100vw;
+    transition: 450ms;
+    position: fixed;
+    color: #790c30;
+    background-color: #181202;
+    height: 100vh;
+    width: 5px;
+    overflow: hidden;
+}
+
+.AllDrinkCategories {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+    /* flex-flow: column nowrap; */
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+
+    background-color: transparent;
+    height: 100%;
+    padding: 0;
+    gap: 5px;
+
+}
+
+.AllDrinkCategories > div{
+
+
+}
+.katBarWrapper{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: transparent;
+    height: 100%;
+    padding: 0;
+    gap: 5px;
+}
+
+.katBarWrapper>div{
+    background: transparent;
+    border-radius: 5px;
+    padding: 8px;
+}
+.CatsInAWrap {
+    position: relative;
+    /* flex:1 1 auto; */
+    flex-grow:1;
+    align-self:stretch;
+}
+
+.cocktailsPageCategories{
+    display: flex;
+
+    justify-content: space-evenly;
+    align-items: flex-start;
+    /* flex-flow: row wrap; */
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    border-radius: 10px;
+    background-color: rgba(11, 11, 12, 0.56);
+    height: 100%;
+    padding: 15px;
+    gap: 5px;
+}
+.cocktailsPageCategoriesLinks{
+    border: 2px solid;
+    border-radius: 1ch;
+    padding: .4ch;
+    background-color: #790c30;
+    cursor: pointer;
+    color: #0b0b0c;
+    font-size: .8rem;
+    height: fit-content;
+    width: fit-content;
+    justify-content: center;
+    text-align: center;
+    transition: 450ms;
+}
+.cocktailsPageCategoriesLinks:hover{
+    border-radius: 1rem;
+    background-color: #181202;
+    color:#ffeed6 ;
+}
+
+
+.cocktailsContent{
+    display: flex;
+
+    justify-content: flex-start;
+    align-items: stretch;
+    /* flex-flow: column nowrap; */
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+
+
+    height: 100%;
+    padding: 15px;
+    gap: 5px;
+}
+.cocktailsImage{
+    filter: brightness(90%);
+    user-select: none;
+    width: 7rem;
+    height: 7rem;
+    transition: 300ms;
+}
+.cocktailsImage:hover{
+    filter: brightness(100%);
+}
+
+
+.cocktailsDataDrink{
+    z-index: 0;
+    justify-content: center;
+    text-align: center;
+    padding: 1ch;
+    cursor: pointer;
+    font-size: .8rem;
+    p{
+        font-size: .5em;
+    }
+    transition: 175ms ease-out;
+ }
+.cocktailsDataDrink:hover{
+    background-color: rgba(11, 11, 12, 0.69);
+    color: #ffeed6;
+}
+
+
+.cocktailInfoPage{
+
+    z-index: 101;
+    text-align: center;
+    display: none;
+    margin: auto;
+    padding-top:1.5rem ;
+    padding-bottom:5.5rem ;
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    position: fixed;
+    color: #f9fffe;
+    background-color: rgba(11, 11, 12, 0.79);
+}
+.cocktailInfoPage::-webkit-scrollbar {
+
+    width: 0.70rem;
+    background: #ffeed6;
+}
+
+.cocktailInfoPage::-webkit-scrollbar-track {
+    background: #181202;
+
+
+}
+
+.cocktailInfoPage::-webkit-scrollbar-thumb {
+    border-radius: 100vh;
+    background: #181202;
+    border:2px solid #ffeed6;
+}
+
+#CloseInfoPage{
+    top: 0;
+    width: 100%;
+    padding: .5rem 0;
+    position: fixed;
+    font-size: 1.5em;
+    cursor: pointer;
+    background-color: #0b0b0c;
+    transition: 300ms;
+}
+#CloseInfoPage:hover{
+    background-color: #790c30;
+}
+
+.ingredientsWrapper{
+
+    ul{
+        text-align: center;
+        width: 50%;
+        margin: auto;
+    }
+}
+.instructionsWrapper{
+    margin:2rem;
+}
+
 @media only screen and (min-width: 600px) {
-    .navbar{
+    .cocktailsData{
+        display: grid;
+        flex-grow:1;
+        grid-template-columns: auto auto auto;
+    }
+    .navbar {
+        padding-right: .5rem;
         top: 0;
         width: 5rem;
         height: 100vh;
+
     }
-    .navbar:hover{
-        width: 15rem;
+
+    /*.navbar:hover {*/
+    /*    width: 15rem;*/
+    /*}*/
+    .cocktails{
+        display: inline-grid;
     }
-    .navbar:hover .link-text{
+    .navbar:hover .link-text {
         filter: opacity(1);
         display: block;
     }
-    .cocktails:hover .dropdown-content{
 
+    .cocktails:hover .dropdown-content {
+        pointer-events: auto;
         filter: opacity(1) blur(0px);
         display: block;
+    }
+
+    .navbar:hover .cocktails {
+        pointer-events: revert;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .navbar .link-text{
+    .navbar .link-text {
         filter: opacity(1);
         display: none;
     }
-    .navbar{
+
+    .navbar {
         bottom: 0;
-        width: 100vh;
+        width: 100vw;
         height: 5rem;
     }
-    .navbar-nav{
+
+    .navbar-nav {
         flex-direction: row;
     }
-    .nav-link{
+
+    .nav-link {
         justify-content: center;
     }
-
-    main{
-        margin: 0   ;
+    .cocktails {
+        pointer-events: revert;
     }
-}
-.dropdown-content {
-    filter: opacity(0) blur(30px);
+    main {
+        filter: blur(0px);
+        margin: 0;
+        transition: filter 300ms;
+    }
 
-    position: absolute;
-    background-color: #790c30;
-    min-width: 160px;
-    z-index: 1;
-    transition: 600ms;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  .dropdown-content a:hover {background-color: #ddd;}
+}
+.blurClass{
+    filter: blur(30px);
+    transition: 300ms;
+}
+
+.buttonCherche{
+    border-radius: 60px;
+
+}
   
