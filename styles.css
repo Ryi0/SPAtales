@@ -465,4 +465,9 @@ main {
     filter: blur(30px);
     transition: 300ms;
 }
+
+.buttonCherche{
+    border-radius: 60px;
+
+}
   

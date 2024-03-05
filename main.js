@@ -154,6 +154,7 @@ async function DrinksFetcher(){
     }
 }
 
+
 async function DrinkCaller(){
     await DrinksFetcher();
     console.log(Drinks);
@@ -235,3 +236,95 @@ function closeNav() {
     $("#navigator").css("marginLeft", "0");
     $("#categories").css("right", "-100vw");
 }
+
+
+
+
+
+
+async function searching(){
+
+    const inputEntre=document.getElementById("chercher").value;
+    document.getElementById("resultatDeRecherche").textContent="Results for "+inputEntre;
+    
+    if(!isNaN(inputEntre)&&(inputEntre.length>=5)){
+        searchingById();
+        console.log(Dranks);
+      
+    }
+    else{
+        searchingByLetters();
+        console.log(Dranks);
+     
+    }
+
+}
+async function searchingByLetters(){
+    Dranks=[];
+        const lettresEntrees = document.getElementById("chercher").value.toLowerCase();
+        const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+lettresEntrees);
+      const data=await response.json()
+      displaySearchResults(data.drinks);
+      for(const drink of data["drinks"]){
+        Dranks.push(Object.values(drink))
+        console.log(Object.values(drink))
+      }
+      //console.log(data);
+    
+      
+      
+    }
+    async function searchingById(){
+        Dranks=[];
+        const idEntre=document.getElementById("chercher").value;
+        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idEntre}`);
+        const data=await response.json()
+        displaySearchResults(data.drinks);
+        for(const drink of data["drinks"]){
+            Dranks.push(Object.values(drink))
+            console.log(Object.values(drink))
+        //console.log(data);
+       
+    }
+    }
+    
+    
+    async function searching(){
+    
+        const inputEntre=document.getElementById("chercher").value;
+        document.getElementById("resultatDeRecherche").textContent="Results for "+inputEntre;
+        
+        if(!isNaN(inputEntre)&&(inputEntre.length>=5)){
+            searchingById();
+            console.log(Dranks);
+          
+        }
+        else{
+            searchingByLetters();
+            console.log(Dranks);
+         
+        }
+    }
+    
+    function displaySearchResults(results) {
+        const searchResultsContainer = document.getElementById("searchResults");
+
+        searchResultsContainer.innerHTML = "";
+    
+        if (results) {
+            results.forEach(drink => {
+                const resultItem = document.createElement("div");
+                resultItem.textContent = drink.strDrink;
+           
+    
+                searchResultsContainer.appendChild(resultItem);
+            });
+        } else {
+     
+            searchResultsContainer.textContent = "No results found.";
+        }
+    }
+    
+
+
+
