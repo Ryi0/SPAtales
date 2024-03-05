@@ -466,8 +466,25 @@ main {
     transition: 300ms;
 }
 
-.buttonCherche{
-    border-radius: 60px;
+.button{
+    width: 100%;
+    background-color:white;
+    color:  rgba(24, 18, 2, 0.76);
+    font-size: large;
+    font-weight: bolder;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+   
+    cursor: pointer;
 
 }
-  
+.inputLettre{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
