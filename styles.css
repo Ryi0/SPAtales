@@ -79,9 +79,22 @@ main {
   text-decoration: none;
   transition: 500ms;
 }
+.nav-links {
+  margin-top: -10%;
+  filter: hue-rotate(55deg) saturate(0.25) brightness(6.5) opacity(0.95);
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  text-decoration: none;
+  transition: 500ms;
+  font-size:75%;
+}
 
 .nav-link:hover {
   filter: hue-rotate(30deg) saturate(0.75) brightness(8) opacity(1);
+}
+.nav-links:hover {
+
 }
 
 .link-text {

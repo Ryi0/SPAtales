@@ -393,8 +393,11 @@ function handleResponse(xml) {
 
     document.getElementById('city').innerText=`City: ${city}`;
     document.getElementById('temperature').innerText = `Temperature: ${tempCelcius}°C`;
-    document.getElementById('weather-description').innerText = `Weather: ${weatherDescription}`;
     document.getElementById('feelsLike').innerText = `Feels Like: ${feelsLikeCel}°C`;
+    document.getElementById('weather-description').innerText = `Weather: ${weatherDescription}`;
+    document.getElementById('cityBar').innerText=`City: ${city}`;
+    document.getElementById('temperatureBar').innerText = `Temperature: ${tempCelcius}°C`;
+    document.getElementById('feelsLikeBar').innerText = `Feels Like: ${feelsLikeCel}°C`;
     console.log(weatherDescription);
     console.log(temperature);
 }
