@@ -79,9 +79,22 @@ main {
   text-decoration: none;
   transition: 500ms;
 }
+.nav-links {
+  margin-top: -10%;
+  filter: hue-rotate(55deg) saturate(0.25) brightness(6.5) opacity(0.95);
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  text-decoration: none;
+  transition: 500ms;
+  font-size:75%;
+}
 
 .nav-link:hover {
   filter: hue-rotate(30deg) saturate(0.75) brightness(8) opacity(1);
+}
+.nav-links:hover {
+
 }
 
 .link-text {
@@ -446,31 +459,24 @@ main {
   transition: 300ms;
 }
 
-
 .button{
-    width: 100%;
-    background-color:white;
-    color:  rgba(24, 18, 2, 0.76);
-    font-size: large;
-    font-weight: bolder;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-   
-    cursor: pointer;
+  width: 100%;
+  background-color:white;
+  color:  rgba(24, 18, 2, 0.76);
+  font-size: large;
+  font-weight: bolder;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+ 
+  cursor: pointer;
 
 }
 .inputLettre{
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
-
-
-.buttonCherche {
-  border-radius: 60px;
-}
-
