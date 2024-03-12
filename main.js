@@ -403,9 +403,9 @@ function handleResponse(xml) {
 }
 
 function recetteAleatoire() {
-  // Clear the existing content in the CD div
-  $("#homeDrinks").empty();
-  console.log("TEST ALEA");
+ 
+  $("#HomeDrinks").empty();
+
   $.ajax({
     url: "https://www.thecocktaildb.com/api/json/v1/1/random.php",
     method: "GET",
@@ -414,13 +414,63 @@ function recetteAleatoire() {
       console.log(response);
       console.log("FLAG2 : "+response.drinks);
       console.log(response.drinks)
-      // Display each random drink in the CD div
-      response.drinks.forEach(function (drink) {
-        appendDrinkToGrid([drink.strDrink, drink.strDrinkThumb, drink.idDrink]);
-      });
+      AfficherAleatoire(response.drinks[0]);
     },
     error: function (xhr, status, error) {
       console.log("Error fetching random drinks: " + error);
     },
   });
+}
+
+
+function AfficherAleatoire(drink) {
+  const searchResultsContainer = $("#HomeDrinks");
+
+  if (drink) {
+    const resultItem = $("<div>", {
+      id: "drinkTile",
+      class: "cocktailsDataDrink",
+    });
+    const drinkImage = $("<img>", {
+      src: drink.strDrinkThumb,
+      alt: "An image of the drink",
+      id: "drinkimage",
+      class: "cocktailsImage",
+    });
+    const drinkID = drink.idDrink;
+
+    resultItem.append($("<h3>").text(drink.strDrink));
+    resultItem.append(drinkImage);
+    resultItem.append($("<p>").text(`Id: ${drinkID}`));
+
+    resultItem.on("click", () => {
+      $.ajax({
+        url: "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkID,
+        method: "GET",
+        success: function (response) {
+          let drink = response.drinks[0];
+          $("#title").text(drink.strDrink);
+          $("#category").text("Category: " + drink.strCategory);
+          $("#glassType").text("Glass Type: " + drink.strGlass);
+          $(".instructionsWrapper p").text(drink.strInstructions);
+          $("#ingredientsUL").empty();
+          for (let i = 1; i <= 15; i++) {
+            if (drink["strIngredient" + i]) {
+              let ingredient = drink["strIngredient" + i];
+              let measure = drink["strMeasure" + i];
+              $("#ingredientsUL").append(`<li> ${measure} ${ingredient} </li>`);
+            }
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log("Error: " + error);
+        },
+      });
+      openInfoRecipe();
+    });
+
+    searchResultsContainer.append(resultItem);
+  } else {
+    searchResultsContainer.text("No results found.");
+  }
 }
