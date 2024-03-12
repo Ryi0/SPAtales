@@ -405,11 +405,15 @@ function handleResponse(xml) {
 function recetteAleatoire() {
   // Clear the existing content in the CD div
   $("#homeDrinks").empty();
-
+  console.log("TEST ALEA");
   $.ajax({
     url: "https://www.thecocktaildb.com/api/json/v1/1/random.php",
     method: "GET",
     success: function (response) {
+      console.log("FLAG1 : "+ response);
+      console.log(response);
+      console.log("FLAG2 : "+response.drinks);
+      console.log(response.drinks)
       // Display each random drink in the CD div
       response.drinks.forEach(function (drink) {
         appendDrinkToGrid([drink.strDrink, drink.strDrinkThumb, drink.idDrink]);
