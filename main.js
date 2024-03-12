@@ -465,3 +465,58 @@ function displaySearchResults(results) {
     searchResultsContainer.text("No results found.");
   }
 }
+<<<<<<< Updated upstream
+=======
+const apiKey = '66f06076e82d204d025be24d110e10ad';
+const cityName = 'Montreal';
+const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&mode=xml`;
+
+
+const xhttp = new XMLHttpRequest();
+
+xhttp.onreadystatechange = function () {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+        handleResponse(xhttp.responseXML);
+    }
+};
+
+xhttp.open('GET', apiUrl, true);
+xhttp.send();
+
+//function pour extraire les donnees du xml
+function handleResponse(xml) {
+    const temperature = xml.getElementsByTagName('temperature')[0].getAttribute('value');
+    const weatherDescription = xml.getElementsByTagName('weather')[0].getAttribute('value');
+    const feelsLike=xml.getElementsByTagName('feels_like')[0].getAttribute('value');
+    const city=xml.getElementsByTagName('city')[0].getAttribute('name');
+    const lastUpdate=xml.getElementsByTagName('lastupdate')[0].getAttribute('value');
+    const humidite=xml.getElementsByTagName('humidity')[0].getAttribute('value');
+    const windSpeed=xml.getElementsByTagName('speed')[0].getAttribute('value');
+    const sunRise=xml.getElementsByTagName('sun')[0].getAttribute('rise');
+    const sunSet=xml.getElementsByTagName('sun')[0].getAttribute('set');
+    const tempMin=xml.getElementsByTagName('temperature')[0].getAttribute('min');
+    const tempMax=xml.getElementsByTagName('temperature')[0].getAttribute('max');
+
+    tempCelcius=Math.ceil(temperature-273.15);
+    feelsLikeCel=Math.ceil(feelsLike-273.15);
+    tempMinCel=Math.ceil(tempMin-273.15);
+    tempMaxCel=Math.ceil(tempMax-273.15);
+
+    document.getElementById('temperatureMin').innerText = `Min. Temp. : ${tempMinCel}°C`;
+    document.getElementById('temperatureMax').innerText = `Max. Temp. : ${tempMaxCel}°C`;
+    document.getElementById('sunRise').innerText=`Sun Rise Time For the day: ${sunRise}`;
+    document.getElementById('sunSet').innerText=`Sun Set Time For the day: ${sunSet}`;
+    document.getElementById('wind').innerText=`Wind speed: ${windSpeed} m/s`;
+    document.getElementById('humidite').innerText=`Humidity: ${humidite}`;
+    document.getElementById('lastUp').innerText=`Last update: ${lastUpdate}`;
+    document.getElementById('city').innerText=`City: ${city}`;
+    document.getElementById('temperature').innerText = `Temperature: ${tempCelcius}°C`;
+    document.getElementById('feelsLike').innerText = `Feels Like: ${feelsLikeCel}°C`;
+    document.getElementById('weather-description').innerText = `Weather: ${weatherDescription}`;
+    document.getElementById('cityBar').innerText=`City: ${city}`;
+    document.getElementById('temperatureBar').innerText = `Temperature: ${tempCelcius}°C`;
+    document.getElementById('feelsLikeBar').innerText = `Feels Like: ${feelsLikeCel}°C`;
+    console.log(weatherDescription);
+    console.log(temperature);
+}
+>>>>>>> Stashed changes
