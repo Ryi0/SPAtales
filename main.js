@@ -69,33 +69,14 @@ function fetchDrinks(category) {
   closeNav();
 }
 
-/**
- * this function creates a tile of drink and appends it to the grid
- * @param drink
- */
-function appendDrinkToGrid(drink) {
-  let $drink = $("<div>", { id: "drinkTile", class: "cocktailsDataDrink" });
-  let $drinkImage = $("<img>", {
-    src: drink[1],
-    alt: "An image of the drink",
-    id: "drinkimage",
-    class: "cocktailsImage",
-  });
-  let drinkID = drink[2];
-  // $drink.text(drink);
-  $drink.append(`<h3>${drink[0]}</h3>`);
-  $drink.append($drinkImage);
-  $drink.append(`<p>Id : ${drinkID}</p>`);
-  $drink.on("click", () => {
+function drinkClickHandler(drinkID) {
+  return () => {
     $.ajax({
-      url:
-        "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkID,
+      url:"https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkID,
       method: "GET",
       success: function (response) {
-        console.log(response.drinks[0]);
         let drink = response.drinks[0];
         $("#title").text(drink.strDrink);
-        console.log($("#title"));
         $("#category").text("Category: " + drink.strCategory);
         $("#glassType").text("Glass Type: " + drink.strGlass);
         $(".instructionsWrapper p").text(drink.strInstructions);
@@ -113,9 +94,46 @@ function appendDrinkToGrid(drink) {
       },
     });
     openInfoRecipe();
+  };
+}
+
+/**
+ * this function creates a tile of drink and appends it to the grid
+ * enters as array of 3 elements [0=name,1=img,2=id]
+ * @param drink Array [0=name,1=img,2=id]
+ * @param container where to append the drink
+ */
+function appendDrinkToGrid(drink, container) {
+  if (container!==undefined){
+    if (!container.is("div")) {
+      if ($(container).get()!==typeof HTMLElement.prototype){
+    console.error(($(container).get()));
+    throw new Error(container+ " Is not a valid container")
+  }
+      }
+  }
+  console.log(container)
+  console.log(drink)
+  const $drink = $("<div>", { id: "drinkTile", class: "cocktailsDataDrink" });
+  let $drinkImage = $("<img>", {
+    src: drink[1],
+    alt: "An image of the drink",
+    id: "drinkimage",
+    class: "cocktailsImage",
   });
+  let drinkID = drink[2];
+  // $drink.text(drink);
+  $drink.append(`<h3>${drink[0]}</h3>`);
+  $drink.append($drinkImage);
+  $drink.append(`<p>Id : ${drinkID}</p>`);
+  $drink.on("click", drinkClickHandler(drinkID));
   // console.log(drink) //enters as array of 3 elements [0=name,1=img,2=id]
-  $("#CD").append($drink);
+  $(container===undefined?"#CD":container).append($drink); //default application is cocktailsData grid
+  if (container===undefined){
+
+    console.warn(`${container} (container) is undefined. If this is not the desired outcome, please set up a containe`);
+    console.warn($($("#CD").get()).get())
+  }
 }
 
 function appendCategoryToFlexbox(displayText) {
@@ -304,63 +322,40 @@ async function searching() {
   }
 }
 
+function formatDrink(drink) {
+  let thisIsHackedTogether;
+  drink.forEach((drink) => {
+    const resultItem = $("<div>", {
+      id: "drinkTile",
+      class: "cocktailsDataDrink",
+    });
+    const drinkImage = $("<img>", {
+      src: drink.strDrinkThumb,
+      alt: "An image of the drink",
+      id: "drinkimage",
+      class: "cocktailsImage",
+    });
+    const drinkID = drink.idDrink;
+
+    resultItem.append($("<h3>").text(drink.strDrink));
+    resultItem.append(drinkImage);
+    resultItem.append($("<p>").text(`Id: ${drinkID}`));
+
+    resultItem.on("click", drinkClickHandler(drinkID));
+
+    thisIsHackedTogether = resultItem;
+  });
+  return thisIsHackedTogether;
+}
+
 function displaySearchResults(results) {
   const searchResultsContainer = $("#searchResults");
 
   searchResultsContainer.empty(); // Clear previous search results
 
   if (results) {
-    results.forEach((drink) => {
-      const resultItem = $("<div>", {
-        id: "drinkTile",
-        class: "cocktailsDataDrink",
-      });
-      const drinkImage = $("<img>", {
-        src: drink.strDrinkThumb,
-        alt: "An image of the drink",
-        id: "drinkimage",
-        class: "cocktailsImage",
-      });
-      const drinkID = drink.idDrink;
+    appendDrinkToGrid( formatDrink(results), searchResultsContainer);
 
-      resultItem.append($("<h3>").text(drink.strDrink));
-      resultItem.append(drinkImage);
-      resultItem.append($("<p>").text(`Id: ${drinkID}`));
-
-      resultItem.on("click", () => {
-        $.ajax({
-          url:
-            "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" +
-            drinkID,
-          method: "GET",
-          success: function (response) {
-            console.log(response.drinks[0]);
-            let drink = response.drinks[0];
-            $("#title").text(drink.strDrink);
-            console.log($("#title"));
-            $("#category").text("Category: " + drink.strCategory);
-            $("#glassType").text("Glass Type: " + drink.strGlass);
-            $(".instructionsWrapper p").text(drink.strInstructions);
-            $("#ingredientsUL").empty();
-            for (let i = 1; i <= 15; i++) {
-              if (drink["strIngredient" + i]) {
-                let ingredient = drink["strIngredient" + i];
-                let measure = drink["strMeasure" + i];
-                $("#ingredientsUL").append(
-                  `<li> ${measure} ${ingredient} </li>`,
-                );
-              }
-            }
-          },
-          error: function (xhr, status, error) {
-            console.log("Error: " + error);
-          },
-        });
-        openInfoRecipe();
-      });
-
-      searchResultsContainer.append(resultItem);
-    });
   } else {
     searchResultsContainer.text("No results found.");
   }
@@ -403,9 +398,7 @@ function handleResponse(xml) {
 }
 
 function recetteAleatoire() {
- 
   $("#HomeDrinks").empty();
-
   $.ajax({
     url: "https://www.thecocktaildb.com/api/json/v1/1/random.php",
     method: "GET",
@@ -414,7 +407,7 @@ function recetteAleatoire() {
       console.log(response);
       console.log("FLAG2 : "+response.drinks);
       console.log(response.drinks)
-      AfficherAleatoire(response.drinks[0]);
+      AfficherAleatoire(response.drinks);
     },
     error: function (xhr, status, error) {
       console.log("Error fetching random drinks: " + error);
@@ -422,54 +415,31 @@ function recetteAleatoire() {
   });
 }
 
-
+let singleDrink = [[]];
 function AfficherAleatoire(drink) {
+  console.log(drink)
   const searchResultsContainer = $("#HomeDrinks");
-
   if (drink) {
-    const resultItem = $("<div>", {
-      id: "drinkTile",
-      class: "cocktailsDataDrink",
-    });
-    const drinkImage = $("<img>", {
-      src: drink.strDrinkThumb,
-      alt: "An image of the drink",
-      id: "drinkimage",
-      class: "cocktailsImage",
-    });
-    const drinkID = drink.idDrink;
-
-    resultItem.append($("<h3>").text(drink.strDrink));
-    resultItem.append(drinkImage);
-    resultItem.append($("<p>").text(`Id: ${drinkID}`));
-
-    resultItem.on("click", () => {
-      $.ajax({
-        url: "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkID,
-        method: "GET",
-        success: function (response) {
-          let drink = response.drinks[0];
-          $("#title").text(drink.strDrink);
-          $("#category").text("Category: " + drink.strCategory);
-          $("#glassType").text("Glass Type: " + drink.strGlass);
-          $(".instructionsWrapper p").text(drink.strInstructions);
-          $("#ingredientsUL").empty();
-          for (let i = 1; i <= 15; i++) {
-            if (drink["strIngredient" + i]) {
-              let ingredient = drink["strIngredient" + i];
-              let measure = drink["strMeasure" + i];
-              $("#ingredientsUL").append(`<li> ${measure} ${ingredient} </li>`);
-            }
-          }
-        },
-        error: function (xhr, status, error) {
-          console.log("Error: " + error);
-        },
-      });
-      openInfoRecipe();
-    });
-
-    searchResultsContainer.append(resultItem);
+   appendDrinkToGrid(formatDrink(drink), searchResultsContainer)
+   //  const resultItem = $("<div>", {
+   //    id: "drinkTile",
+   //    class: "cocktailsDataDrink",
+   //  });
+   //  const drinkImage = $("<img>", {
+   //    src: drink.strDrinkThumb,
+   //    alt: "An image of the drink",
+   //    id: "drinkimage",
+   //    class: "cocktailsImage",
+   //  });
+   //  const drinkID = drink.idDrink;
+   //
+   //  resultItem.append($("<h3>").text(drink.strDrink));
+   //  resultItem.append(drinkImage);
+   //  resultItem.append($("<p>").text(`Id: ${drinkID}`));
+   //
+   //  resultItem.on("click", drinkClickHandler(drinkID));
+   //
+   //  searchResultsContainer.append(resultItem);
   } else {
     searchResultsContainer.text("No results found.");
   }

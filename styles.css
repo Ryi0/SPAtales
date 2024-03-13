@@ -191,6 +191,11 @@ main {
   border-radius: 5px;
   cursor: pointer;
   position: relative;
+  transition: 175ms;
+}
+.categoriesButton:hover{
+  background-color: #790c30;
+  color: #ffeed6;
 }
 .categoriesBarCloseBtn {
   cursor: pointer;
@@ -221,11 +226,11 @@ main {
 .AllDrinkCategories {
   display: flex;
 
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: stretch;
   /* flex-flow: column nowrap; */
   flex-direction: column;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-content: stretch;
 
   background-color: transparent;
@@ -389,6 +394,12 @@ main {
 }
 .instructionsWrapper {
   margin: 2rem;
+}
+
+.cocktailsData {
+  display: grid;
+  flex-grow: 1;
+  grid-template-columns: auto; /*If its on mobile only have one column */
 }
 
 @media only screen and (min-width: 600px) {
