@@ -323,27 +323,14 @@ async function searching() {
 }
 
 function formatDrink(drink) {
-  let thisIsHackedTogether;
+  let thisIsHackedTogether = [];
   drink.forEach((drink) => {
-    const resultItem = $("<div>", {
-      id: "drinkTile",
-      class: "cocktailsDataDrink",
-    });
-    const drinkImage = $("<img>", {
-      src: drink.strDrinkThumb,
-      alt: "An image of the drink",
-      id: "drinkimage",
-      class: "cocktailsImage",
-    });
+    const name = drink.strDrink;
+    const drinkImage = drink.strDrinkThumb;
     const drinkID = drink.idDrink;
-
-    resultItem.append($("<h3>").text(drink.strDrink));
-    resultItem.append(drinkImage);
-    resultItem.append($("<p>").text(`Id: ${drinkID}`));
-
-    resultItem.on("click", drinkClickHandler(drinkID));
-
-    thisIsHackedTogether = resultItem;
+    thisIsHackedTogether.push(name);
+    thisIsHackedTogether.push(drinkImage);
+    thisIsHackedTogether.push(drinkID)
   });
   return thisIsHackedTogether;
 }
