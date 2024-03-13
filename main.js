@@ -288,7 +288,6 @@ async function searchingByLetters() {
     appendDrinkToGrid(formatDrink(drink), searchResultsContainer)
   }}catch (e) {
     searchResultsContainer.siblings('#resultatDeRecherche').text(`No results found for the name ${lettresEntrees}`)
-
   }
 }
 async function searchingById() {
