@@ -27,7 +27,7 @@ $(function () {
     $(".navbar-nav li").on("click", (event) => {
       if (navOpen) {
         event.preventDefault();
-        closeNav();
+        CloseNav();
       }
     });
   }
@@ -45,51 +45,8 @@ $(function () {
   });
 });
 
-/**
- *
- * This function displays the cocktails page no matter what page is
- * @param category
- */
 
-function fetchDrinks(category) {
-  $("#CD").empty();
-  console.log(category);
-  $(".page").removeClass("active");
-  $("#cocktails").addClass("active");
-  $("#catTitle").text(category);
-  //finish with :
-  selectedCategory = category;
-  DrinkCaller();
-  closeNav();
-}
 
-function drinkClickHandler(drinkID) {
-  return () => {
-    $.ajax({
-      url:"https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkID,
-      method: "GET",
-      success: function (response) {
-        let drink = response.drinks[0];
-        $("#title").text(drink.strDrink);
-        $("#category").text("Category: " + drink.strCategory);
-        $("#glassType").text("Glass Type: " + drink.strGlass);
-        $(".instructionsWrapper p").text(drink.strInstructions);
-        $("#ingredientsUL").empty();
-        for (let i = 1; i <= 15; i++) {
-          if (drink["strIngredient" + i]) {
-            let ingredient = drink["strIngredient" + i];
-            let measure = drink["strMeasure" + i];
-            $("#ingredientsUL").append(`<li> ${measure} ${ingredient} </li>`);
-          }
-        }
-      },
-      error: function (xhr, status, error) {
-        console.log("Error: " + error);
-      },
-    });
-    openInfoRecipe();
-  };
-}
 
 /**
  * this function creates a tile of drink and appends it to the grid
@@ -121,7 +78,7 @@ function appendDrinkToGrid(drink, container) {
   $drink.append(`<h3>${drink[0]}</h3>`);
   $drink.append($drinkImage);
   $drink.append(`<p>Id : ${drinkID}</p>`);
-  $drink.on("click", drinkClickHandler(drinkID));
+  $drink.on("click", DrinkClickHandler(drinkID));
   // console.log(drink) //enters as array of 3 elements [0=name,1=img,2=id]
   $(container===undefined?"#CD":container).append($drink); //default application is cocktailsData grid
   if (container===undefined){
@@ -142,11 +99,11 @@ function appendCategoryToFlexbox(displayText) {
 
   $Category.on("click", () => {
     const categoryClicked = displayText;
-    fetchDrinks(categoryClicked);
+    FetchDrinks(categoryClicked);
   });
   $Category2.on("click", () => {
     const categoryClicked = displayText;
-    fetchDrinks(categoryClicked);
+    FetchDrinks(categoryClicked);
   });
 
   $("#ADC").append($Category);
@@ -217,58 +174,10 @@ async function CategoriesCaller() {
 //Works without catch() but i dont like underlines
 CategoriesCaller().catch((e2) => console.error(e2));
 
-function openInfoRecipe() {
-  $("main").children().addClass("blurClass");
-  // $("main").css({"filter":"blur(50px)"})
-  $(".cocktailInfoPage").slideDown();
-  $(".cocktailInfoPage")
-    .children()
-    .first()
-    .show(50, "linear", function showNext() {
-      $(this).next("*").show(50, "linear", showNext);
-    });
-}
-function closeInfoRecipe() {
-  // $("main").css({"filter":"blur(0px)"})
-  $("main").children().removeClass("blurClass");
-  $(".cocktailInfoPage").slideUp();
-  $(".cocktailInfoPage")
-    .children()
-    .first()
-    .hide(50, "linear", function hideNext() {
-      $(this).next("*").hide(50, "linear", hideNext);
-    });
-}
-function openNav() {
-  setTimeout(() => {
-    navOpen = true;
-  }, 50); //delay of 50ms so the nav can actually open. Might work if i put nav open later in the code and avoid delay but this is mostly foolproof
-  $("#categories").css("width", "50vw");
-  $("#navigator").css("marginLeft", "50vw");
-  $("#categories").css("left", "0");
-}
 
-function closeNav() {
-  setTimeout(() => {
-    navOpen = false;
-  }, 50);
 
-  $("#categories").css("width", "0");
-  $("#navigator").css("marginLeft", "0");
-  $("#categories").css("right", "-100vw");
-}
 
-async function searching() {
-  const inputEntre = document.getElementById("chercher").value;
-  document.getElementById("resultatDeRecherche").textContent =
-    "Results for " + inputEntre;
 
-  if (!isNaN(inputEntre) && inputEntre.length >= 5) {
-    searchingById();
-  } else {
-    searchingByLetters();
-  }
-}
 async function searchingByLetters() {
 
 
@@ -366,25 +275,7 @@ function handleResponse(xml) {
     console.log(temperature);
 }
 
-function recetteAleatoire() {
-  $("#HomeDrinks").empty();
-  $.ajax({
-    url: "https://www.thecocktaildb.com/api/json/v1/1/random.php",
-    method: "GET",
-    success: function (response) {
-      console.log("FLAG1 : "+ response);
-      console.log(response);
-      console.log("FLAG2 : "+response.drinks);
-      console.log(response.drinks)
-      AfficherAleatoire(response.drinks);
-    },
-    error: function (xhr, status, error) {
-      console.log("Error fetching random drinks: " + error);
-    },
-  });
-}
-
-function AfficherAleatoire(drink) {
+function handleRandom(drink) {
   console.log(drink)
   const searchResultsContainer = $("#HomeDrinks");
   if (drink) {

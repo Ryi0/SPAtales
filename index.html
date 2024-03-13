@@ -15,6 +15,7 @@
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous"
     ></script>
+    <script src="vue.js"></script>
 </head>
 <body>
 <div id="categories" class="categoriesBar">
@@ -22,13 +23,13 @@
         <div class="CatsInAWrap">
             <div id="ADC" class="AllDrinkCategories"></div>
         </div>
-        <div class="categoriesBarCloseBtn" onclick="closeNav()">X</div>
+        <div class="categoriesBarCloseBtn" onclick="CloseNav()">X</div>
     </div>
 </div>
 <nav id="navigator" class="navbar">
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a href="#home" onclick="recetteAleatoire()" class="nav-link"> 
+            <a href="#home" onclick="ShowRandom()" class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                     <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                     <path
@@ -54,11 +55,11 @@
             </a>
           </span>
             <div class="dropdown-content">
-            <span onclick="openNav()" class="dropdownTile"
+            <span onclick="OpenNav()" class="dropdownTile"
             >Categories&nbsp;&nbsp;&#187;</span
             >
                 <a href="#search" class="dropdownTile"  >Search</a>
-                <span class="dropdownTile" >Feeling lucky</span>
+                <a a href="#home" onclick="ShowRandom()" class="dropdownTile" >Feeling lucky</a>
             </div>
         </li>
 
@@ -109,7 +110,7 @@
     </ul>
 </nav>
 <div class="cocktailInfoPage">
-    <div id="CloseInfoPage" onclick="closeInfoRecipe()">Close</div>
+    <div id="CloseInfoPage" onclick="CloseInfoRecipe()">Close</div>
     <h1 id="title">Tester</h1>
     <h3 id="category">Category</h3>
     <h3 id="glassType">Glass Type</h3>
@@ -136,31 +137,6 @@
             <div id="CPC" class="cocktailsPageCategories"></div>
             <h1 id="catTitle">Cocktails</h1>
             <div id="CD" class="cocktailsData">
-                <!--                <p>Stumptown kale chips tonx intelligentsia photo booth, heirloom tofu. Heirloom bruh chia pitchfork, VHS four-->
-                <!--                    dollar toast 8-bit 90's freegan. Blackbird spyplane meggings knausgaard kombucha paleo. Forage roof party-->
-                <!--                    gorpcore venmo knausgaard chartreuse adaptogen pitchfork hella waistcoat everyday carry drinking-->
-                <!--                    vinegar.</p>-->
-                <!--                <p>Williamsburg semiotics blackbird spyplane kombucha palo santo actually helvetica hashtag tattooed-->
-                <!--                    cornhole</p>-->
-                <!--                <p>skateboard bicycle rights direct trade photo booth. Chartreuse venmo air plant stumptown fam austin-->
-                <!--                    cronut,</p>-->
-                <!--                <p>taxidermy food truck cloud bread. Sus kinfolk praxis chambray kogi. Hoodie farm-to-table listicle mukbang-->
-                <!--                    ennui,</p>-->
-                <!--                <p>small batch meh fingerstache everyday carry enamel pin knausgaard la croix. Wayfarers vexillologist-->
-                <!--                    microdosing,</p>-->
-                <!--                <p>pour-over 3 wolf moon paleo lo-fi swag yr.</p>-->
-                <!--                <p></p>-->
-                <!--                <p>Lomo marfa sartorial DSA, jawn echo park roof party affogato meditation banjo poke vaporware activated-->
-                <!--                    charcoal.</p>-->
-                <!--                <p>Authentic tofu retro, selvage succulents glossier sus beard skateboard heirloom cronut hashtag trust fund-->
-                <!--                    grailed.</p>-->
-                <!--                <p>Lomo meggings sriracha put a bird on it vinyl. Chartreuse tofu synth art party yes plz sriracha gastropub-->
-                <!--                    vinyl</p>-->
-                <!--                <p>occupy street art sus artisan bushwick. Chambray cardigan actually, fixie glossier flexitarian affogato-->
-                <!--                    hammock</p>-->
-                <!--                <p>lo-fi street art VHS polaroid. Mumblecore tofu banjo chartreuse flannel. Fanny pack yes plz vice neutral milk-->
-                <!--                    hotel</p>-->
-                <!--                <p>raclette DIY.</p>-->
             </div>
         </div>
     </div>
@@ -187,7 +163,7 @@
         <h1>Search for a drink</h1>
 
         <input type="text" class="inputLettre" id="chercher"/>
-        <button id="bouttonCherche" class="button" onclick="searching()">
+        <button id="bouttonCherche" class="button" onclick="ChercherRecette()">
             Search
         </button>
 

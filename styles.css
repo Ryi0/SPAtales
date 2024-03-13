@@ -435,6 +435,10 @@ main {
   .navbar:hover .cocktails {
     pointer-events: revert;
   }
+
+  #search{
+    margin-top: 20vh;
+  }
 }
 
 @media only screen and (max-width: 600px) {
