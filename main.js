@@ -106,6 +106,7 @@ function appendDrinkToGrid(drink, container) {
   }
       }
   }
+
   console.log(container)
   console.log(drink)
   const $drink = $("<div>", { id: "drinkTile", class: "cocktailsDataDrink" });
@@ -264,14 +265,13 @@ async function searching() {
 
   if (!isNaN(inputEntre) && inputEntre.length >= 5) {
     searchingById();
-    console.log(Dranks);
   } else {
     searchingByLetters();
-    console.log(Dranks);
   }
 }
 async function searchingByLetters() {
-  Dranks = [];
+
+
   const lettresEntrees = document
     .getElementById("chercher")
     .value.toLowerCase();
@@ -279,46 +279,47 @@ async function searchingByLetters() {
     "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +
       lettresEntrees,
   );
+  const searchResultsContainer = $("#searchResults");
+  searchResultsContainer.empty();
   const data = await response.json();
-  displaySearchResults(data.drinks);
+  console.log(data)
+  try {
   for (const drink of data["drinks"]) {
-    Dranks.push(Object.values(drink));
-    console.log(Object.values(drink));
+    appendDrinkToGrid(formatDrink(drink), searchResultsContainer)
+  }}catch (e) {
+    searchResultsContainer.siblings('#resultatDeRecherche').text(`No results found for the name ${lettresEntrees}`)
+
   }
-  //console.log(data);
 }
 async function searchingById() {
-  Dranks = [];
   const idEntre = document.getElementById("chercher").value;
   const response = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idEntre}`,
   );
+  const searchResultsContainer = $("#searchResults");
+  searchResultsContainer.empty();
   const data = await response.json();
-  displaySearchResults(data.drinks);
-  for (const drink of data["drinks"]) {
-    Dranks.push(Object.values(drink));
-    console.log(Object.values(drink));
-    //console.log(data);
+  try {
+    for (const drink of data["drinks"]) {
+      appendDrinkToGrid(formatDrink(drink), searchResultsContainer)
+    }
+  }catch (e) {
+    // searchResultsContainer.text(`No results found for the id${idEntre}`)
+    searchResultsContainer.siblings('#resultatDeRecherche').text(`No results found for the id ${idEntre}`)
   }
 }
 
-async function searching() {
-  const inputEntre = document.getElementById("chercher").value;
-  document.getElementById("resultatDeRecherche").textContent =
-    "Results for " + inputEntre;
-
-  if (!isNaN(inputEntre) && inputEntre.length >= 5) {
-    searchingById();
-    console.log(Dranks);
-  } else {
-    searchingByLetters();
-    console.log(Dranks);
-  }
-}
-
+/**
+ *
+ * @param drink an array containing one drink
+ * @returns {*[]}
+ */
 function formatDrink(drink) {
+  let drArray = [];
+  drArray.push(drink)
+  console.log(drink)
   let thisIsHackedTogether = [];
-  drink.forEach((drink) => {
+  drArray.forEach((drink) => {
     const name = drink.strDrink;
     const drinkImage = drink.strDrinkThumb;
     const drinkID = drink.idDrink;
@@ -331,32 +332,31 @@ function formatDrink(drink) {
 
 function displaySearchResults(results) {
   const searchResultsContainer = $("#searchResults");
-
-  searchResultsContainer.empty(); // Clear previous search results
+ searchResultsContainer.empty(); // Clear previous search results
 
   if (results) {
-   // appendDrinkToGrid( formatDrink(results), searchResultsContainer);
-    results.forEach((drink) => {
-      const resultItem = $("<div>", {
-        id: "drinkTile",
-        class: "cocktailsDataDrink",
-      });
-      const drinkImage = $("<img>", {
-        src: drink.strDrinkThumb,
-        alt: "An image of the drink",
-        id: "drinkimage",
-        class: "cocktailsImage",
-      });
-      const drinkID = drink.idDrink;
-
-      resultItem.append($("<h3>").text(drink.strDrink));
-      resultItem.append(drinkImage);
-      resultItem.append($("<p>").text(`Id: ${drinkID}`));
-
-      resultItem.on("click", drinkClickHandler(drinkID));
-
-      searchResultsContainer.append(resultItem);
-    });
+  appendDrinkToGrid( formatDrink(results), searchResultsContainer);
+    // results.forEach((drink) => {
+    //   const resultItem = $("<div>", {
+    //     id: "drinkTile",
+    //     class: "cocktailsDataDrink",
+    //   });
+    //   const drinkImage = $("<img>", {
+    //     src: drink.strDrinkThumb,
+    //     alt: "An image of the drink",
+    //     id: "drinkimage",
+    //     class: "cocktailsImage",
+    //   });
+    //   const drinkID = drink.idDrink;
+    //
+    //   resultItem.append($("<h3>").text(drink.strDrink));
+    //   resultItem.append(drinkImage);
+    //   resultItem.append($("<p>").text(`Id: ${drinkID}`));
+    //
+    //   resultItem.on("click", drinkClickHandler(drinkID));
+    //
+    //   searchResultsContainer.append(resultItem);
+    // });
 
   } else {
     searchResultsContainer.text("No results found.");
@@ -422,7 +422,7 @@ function AfficherAleatoire(drink) {
   console.log(drink)
   const searchResultsContainer = $("#HomeDrinks");
   if (drink) {
-   appendDrinkToGrid(formatDrink(drink), searchResultsContainer)
+   appendDrinkToGrid(formatDrink(drink[0]), searchResultsContainer)
   } else {
     searchResultsContainer.text("No results found.");
   }
