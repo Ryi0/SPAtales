@@ -329,38 +329,6 @@ function formatDrink(drink) {
   return thisIsHackedTogether;
 }
 
-function displaySearchResults(results) {
-  const searchResultsContainer = $("#searchResults");
- searchResultsContainer.empty(); // Clear previous search results
-
-  if (results) {
-  appendDrinkToGrid( formatDrink(results), searchResultsContainer);
-    // results.forEach((drink) => {
-    //   const resultItem = $("<div>", {
-    //     id: "drinkTile",
-    //     class: "cocktailsDataDrink",
-    //   });
-    //   const drinkImage = $("<img>", {
-    //     src: drink.strDrinkThumb,
-    //     alt: "An image of the drink",
-    //     id: "drinkimage",
-    //     class: "cocktailsImage",
-    //   });
-    //   const drinkID = drink.idDrink;
-    //
-    //   resultItem.append($("<h3>").text(drink.strDrink));
-    //   resultItem.append(drinkImage);
-    //   resultItem.append($("<p>").text(`Id: ${drinkID}`));
-    //
-    //   resultItem.on("click", drinkClickHandler(drinkID));
-    //
-    //   searchResultsContainer.append(resultItem);
-    // });
-
-  } else {
-    searchResultsContainer.text("No results found.");
-  }
-}
 const apiKey = '66f06076e82d204d025be24d110e10ad';
 const cityName = 'Montreal';
 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&mode=xml`;
@@ -416,7 +384,6 @@ function recetteAleatoire() {
   });
 }
 
-let singleDrink = [[]];
 function AfficherAleatoire(drink) {
   console.log(drink)
   const searchResultsContainer = $("#HomeDrinks");
