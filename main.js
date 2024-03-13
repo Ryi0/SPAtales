@@ -341,7 +341,28 @@ function displaySearchResults(results) {
   searchResultsContainer.empty(); // Clear previous search results
 
   if (results) {
-    appendDrinkToGrid( formatDrink(results), searchResultsContainer);
+   // appendDrinkToGrid( formatDrink(results), searchResultsContainer);
+    results.forEach((drink) => {
+      const resultItem = $("<div>", {
+        id: "drinkTile",
+        class: "cocktailsDataDrink",
+      });
+      const drinkImage = $("<img>", {
+        src: drink.strDrinkThumb,
+        alt: "An image of the drink",
+        id: "drinkimage",
+        class: "cocktailsImage",
+      });
+      const drinkID = drink.idDrink;
+
+      resultItem.append($("<h3>").text(drink.strDrink));
+      resultItem.append(drinkImage);
+      resultItem.append($("<p>").text(`Id: ${drinkID}`));
+
+      resultItem.on("click", drinkClickHandler(drinkID));
+
+      searchResultsContainer.append(resultItem);
+    });
 
   } else {
     searchResultsContainer.text("No results found.");
