@@ -55,7 +55,11 @@ $(function () {
  * @param container where to append the drink
  */
 function appendDrinkToGrid(drink, container) {
-  if (container!==undefined){
+  if (container===undefined){
+    console.warn(`${container} (container) is undefined. If this is not the desired outcome, please set up a containe`);
+    console.warn($($("#CD").get()).get())
+  }
+   else if (container!==undefined){ //yes this can be simplified. But this is more human readable. Three or over ifs need clarity
     if (!container.is("div")) {
       if ($(container).get()!==typeof HTMLElement.prototype){
     console.error(($(container).get()));
@@ -81,12 +85,31 @@ function appendDrinkToGrid(drink, container) {
   $drink.on("click", DrinkClickHandler(drinkID));
   // console.log(drink) //enters as array of 3 elements [0=name,1=img,2=id]
   $(container===undefined?"#CD":container).append($drink); //default application is cocktailsData grid
-  if (container===undefined){
 
-    console.warn(`${container} (container) is undefined. If this is not the desired outcome, please set up a containe`);
-    console.warn($($("#CD").get()).get())
-  }
 }
+
+/**
+ * Formats a drink object into an array containing the name, image, and ID of the drink.
+ *
+ * @param drink - The drink to be formatted.
+ * @returns {[]} An array containing the formatted drink information.
+ */
+function formatDrink(drink) {
+  let drArray = [];
+  drArray.push(drink)
+  console.log(drink)
+  let thisIsHackedTogether = [];
+  drArray.forEach((drink) => {
+    const name = drink.strDrink;
+    const drinkImage = drink.strDrinkThumb;
+    const drinkID = drink.idDrink;
+    thisIsHackedTogether.push(name);
+    thisIsHackedTogether.push(drinkImage);
+    thisIsHackedTogether.push(drinkID)
+  });
+  return thisIsHackedTogether;
+}
+
 
 function appendCategoryToFlexbox(displayText) {
   let $Category = $("<div>", { id: "item", class: "categoriesButton" });
@@ -136,7 +159,7 @@ async function DrinkCaller() {
     appendDrinkToGrid(drink);
   }
 }
-DrinkCaller().catch((e3) => console.error(e3));
+//DrinkCaller().catch((e3) => console.error(e3));
 
 let Categories = [];
 
@@ -217,26 +240,7 @@ async function searchingById() {
   }
 }
 
-/**
- *
- * @param drink an array containing one drink
- * @returns {*[]}
- */
-function formatDrink(drink) {
-  let drArray = [];
-  drArray.push(drink)
-  console.log(drink)
-  let thisIsHackedTogether = [];
-  drArray.forEach((drink) => {
-    const name = drink.strDrink;
-    const drinkImage = drink.strDrinkThumb;
-    const drinkID = drink.idDrink;
-    thisIsHackedTogether.push(name);
-    thisIsHackedTogether.push(drinkImage);
-    thisIsHackedTogether.push(drinkID)
-  });
-  return thisIsHackedTogether;
-}
+
 
 const apiKey = '66f06076e82d204d025be24d110e10ad';
 const cityName = 'Montreal';
