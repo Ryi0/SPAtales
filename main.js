@@ -221,15 +221,70 @@ xhttp.onreadystatechange = function () {
 
 xhttp.open('GET', apiUrl, true);
 xhttp.send();
+function getIcon(iconID){
+  let url = `https://openweathermap.org/img/wn/${iconID}@2x.png`;
+  let googleIconCode = "clear_day";
+
+  if (iconID==="11d"){ // Group 2xx: Thunderstorm
+    googleIconCode = "thunderstorm";
+  }
+  if (iconID==="09d"||iconID==="10d"){ // Group 3xx: Drizzle/Group 5xx: Rain
+    googleIconCode = "rainy";
+  }
+
+  if (iconID==="13d"){ //freezing rain/snow
+    googleIconCode="weather_hail";
+  }
+  if (iconID==="50d"){
+    googleIconCode="foggy";
+  }
+  if (iconID==="01d"){
+
+  }
+
+  return googleIconCode;
+}
+function getIconByGroup(weatherGroup){
+  let url = `https://openweathermap.org/img/wn/${weatherGroup}@2x.png`;
+  let googleIconCode = "clear_day";
+
+  if (weatherGroup>=200){ // Group 2xx: Thunderstorm
+    googleIconCode = "thunderstorm";
+  }
+  if (weatherGroup>=300){ // Group 3xx: Drizzle
+    googleIconCode = "rainy";
+  }
+  if (weatherGroup>=500){
+    googleIconCode="rainy"
+  }
+  if (weatherGroup>=600){ //snow
+    googleIconCode="weather_snowy";
+  }
+  if (weatherGroup===511){ //freezing rain/snow
+    googleIconCode="weather_hail";
+  }
+  if (weatherGroup>=700){
+    googleIconCode="foggy";
+  }
+
+  if (weatherGroup===781){
+    googleIconCode="tornado";
+  }
+  if (weatherGroup===800){
+    googleIconCode="clear_day";
+  }
+
+  return googleIconCode;
+}
 
 //function pour extraire les donnees du xml
 function handleResponse(xml) {
     const temperature = xml.getElementsByTagName('temperature')[0].getAttribute('value');
     const weatherDescription = xml.getElementsByTagName('weather')[0].getAttribute('value');
-    const weatherIcon=xml.getElementsByTagName('weather')[0].getAttribute('icon');
+   // const weatherIcon=xml.getElementsByTagName('weather')[0].getAttribute('icon');
     const feelsLike=xml.getElementsByTagName('feels_like')[0].getAttribute('value');
     const city=xml.getElementsByTagName('city')[0].getAttribute('name');
-
+    const groupNumber=xml.getElementsByTagName('weather')[0].getAttribute('number');
     tempCelcius=Math.ceil(temperature-273.15);
     feelsLikeCel=Math.ceil(feelsLike-273.15);
 
@@ -240,8 +295,8 @@ function handleResponse(xml) {
     document.getElementById('cityBar').innerText=`City: ${city}`;
     document.getElementById('temperatureBar').innerText = `Temperature: ${tempCelcius}°C`;
     document.getElementById('feelsLikeBar').innerText = `Feels Like: ${feelsLikeCel}°C`;
-    document.getElementById('weatherIcon').innerText = `Icon: ${weatherIcon}`;
-
+    //document.getElementById('weatherIcon').innerText = `Icon: ${weatherIcon}`;
+    document.getElementById('weatherIcon').innerText =`${getIconByGroup(groupNumber)}`;
     console.log(weatherDescription);
     console.log(temperature);
 }
