@@ -95,7 +95,7 @@ main {
   transition: 500ms;
 }
 .nav-links {
-  margin-top: -10%;
+  /*margin-top: -10%;*/
   filter: hue-rotate(55deg) saturate(0.25) brightness(6.5) opacity(0.95);
   display: flex;
   align-items: center;
