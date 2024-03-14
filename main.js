@@ -247,7 +247,6 @@ function getIcon(iconID){
 function getIconByGroup(weatherGroup){
   let url = `https://openweathermap.org/img/wn/${weatherGroup}@2x.png`;
   let googleIconCode = "clear_day";
-
   if (weatherGroup>=200){ // Group 2xx: Thunderstorm
     googleIconCode = "thunderstorm";
   }
@@ -273,7 +272,6 @@ function getIconByGroup(weatherGroup){
   if (weatherGroup===800){
     googleIconCode="clear_day";
   }
-
   return googleIconCode;
 }
 

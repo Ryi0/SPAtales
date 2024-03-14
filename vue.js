@@ -5,13 +5,6 @@ function Start(onPhone) {
     $(".cocktailInfoPage").hide();
     if (!onPhone) {
         let navWidth = 5;
-        $(".cocktails").on("mouseover", function () {
-            navWidth = 13;
-        });
-
-        $(".cocktails").on("mouseout", function () {
-        });
-
         $(".navbar").on("mouseover", function () {
             navWidth += 7;
             $(".navbar").css("width", `${navWidth}rem`);
