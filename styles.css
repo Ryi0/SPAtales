@@ -24,7 +24,12 @@ i{
   color: #790c30;
   margin: 0 .25em;
 }
-
+.burger{
+  color: #ffeed6;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
 body {
   color: black;
   background-color: #ffeed6;
@@ -422,6 +427,9 @@ main {
   flex-grow: 1;
   grid-template-columns: auto; /*If its on mobile only have one column */
 }
+#HomeDrinks{
+  min-height: 35vh;
+}
 
 @media only screen and (min-width: 600px) {
   .cocktailsData {
@@ -434,6 +442,10 @@ main {
     top: 0;
     width: 5rem;
     height: 100vh;
+  }
+  .burger{
+    display: none;
+    visibility: hidden;
   }
 
   /*.navbar:hover {*/
@@ -460,6 +472,7 @@ main {
   #search{
     margin-top: 20vh;
   }
+
 }
 
 @media only screen and (max-width: 600px) {
@@ -469,15 +482,24 @@ main {
   }
 
   .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     bottom: 0;
     width: 100vw;
-    height: 5rem;
+    height: 3rem;
+    padding-bottom: 1rem;
   }
 
   .navbar-nav {
     flex-direction: row;
-  }
+    justify-content: center;
+    flex-wrap: wrap;
 
+  }
+  .nav-item{
+    width: auto;
+  }
   .nav-link {
     justify-content: center;
   }
@@ -489,6 +511,7 @@ main {
     margin: 0;
     transition: filter 300ms;
   }
+
 }
 .blurClass {
   filter: blur(30px);

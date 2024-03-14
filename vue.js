@@ -1,3 +1,73 @@
+let navOpen = false;
+let SelectedCategory = "Cocktail";
+let burgerOpen = false;
+function Start(onPhone) {
+    $(".cocktailInfoPage").hide();
+    if (!onPhone) {
+        let navWidth = 5;
+        $(".cocktails").on("mouseover", function () {
+            navWidth = 13;
+        });
+
+        $(".cocktails").on("mouseout", function () {
+        });
+
+        $(".navbar").on("mouseover", function () {
+            navWidth += 7;
+            $(".navbar").css("width", `${navWidth}rem`);
+        });
+
+        $(".navbar").on("mouseout", function () {
+            navWidth = 5;
+            $(".navbar").css("width", `${navWidth}rem`);
+        });
+
+        $(".navbar-nav li").on("click", (event) => {
+            if (navOpen) {
+                event.preventDefault();
+                CloseNav();
+            }
+        });
+    }
+    else {
+        let navHeight = 3;
+        function OpenBurger(event){
+            event.preventDefault();
+            navHeight = navHeight+8;
+            $(".navbar").css("height", `${navHeight}rem`);
+            burgerOpen = true;
+            console.log("OPENING + STATE BEFORE OPENING ="+burgerOpen)
+        }
+        function CloseBurger(event){
+            console.log("CLOSING + STATE BEFORE CLOSING ="+burgerOpen)
+            event.preventDefault();
+            navHeight = 3;
+            $(".navbar").css("height", `${navHeight}rem`);
+           burgerOpen = false;
+        }
+    }
+
+    $("#burGer").on("click", function(event) {
+        if (burgerOpen) {
+            CloseBurger(event);
+        } else {
+            OpenBurger(event);
+        }
+    });
+
+    $("nav a").on("click", NavHandler); //it sends it auto to the param, no need to add () or the param
+    ShowRandom();
+}
+function NavHandler(event) {
+    event.preventDefault();
+    let targetPage = $(this).attr("href");
+    $(".page").removeClass("active");
+    $(targetPage).addClass("active");
+}
+
+
+
+
 function ShowRandom(){
     $("#HomeDrinks").empty();
     $.ajax({
@@ -107,7 +177,7 @@ function FetchDrinks(category) {
     $("#cocktails").addClass("active");
     $("#catTitle").text(category);
     //finish with :
-    selectedCategory = category;
+    SelectedCategory = category;
     DrinkCaller();
     CloseNav();
 }

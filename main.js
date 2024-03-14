@@ -1,48 +1,12 @@
-let navOpen = false;
-let selectedCategory = "Cocktail";
 $(function () {
   let onPhone = false;
   if ($(window).width() < 600) {
     onPhone = true;
   }
-  $(".cocktailInfoPage").hide();
-  if (!onPhone) {
-    let navWidth = 5;
-    $(".cocktails").on("mouseover", function () {
-      navWidth = 13;
-    });
+  Start(onPhone);
 
-    $(".cocktails").on("mouseout", function () {});
-
-    $(".navbar").on("mouseover", function () {
-      navWidth += 7;
-      $(".navbar").css("width", `${navWidth}rem`);
-    });
-
-    $(".navbar").on("mouseout", function () {
-      navWidth = 5;
-      $(".navbar").css("width", `${navWidth}rem`);
-    });
-
-    $(".navbar-nav li").on("click", (event) => {
-      if (navOpen) {
-        event.preventDefault();
-        CloseNav();
-      }
-    });
-  }
-
-  // Initially show home page
   $(".page").removeClass("active");
   $("#home").addClass("active");
-
-  // Handle navigation
-  $("nav a").on("click", function (event) {
-    event.preventDefault(); //Description: If this method is called, the default action of the event will not be triggered.
-    let targetPage = $(this).attr("href");
-    $(".page").removeClass("active");
-    $(targetPage).addClass("active");
-  });
 });
 
 
@@ -139,7 +103,7 @@ async function DrinksFetcher() {
   try {
     const response = await fetch(
       "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" +
-        selectedCategory,
+        SelectedCategory,
     );
     const data = await response.json();
     for (const drink of data["drinks"]) {
