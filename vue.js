@@ -50,8 +50,12 @@ function Start(onPhone) {
     $("#burGer").on("click", function(event) {
         if (burgerOpen) {
             CloseBurger(event);
+            $(this).find('.material-symbols-outlined').text('menu'); // Change back to menu icon
+           // $(this).children("burgerICON").text('menu');
         } else {
             OpenBurger(event);
+            $(this).find('.material-symbols-outlined').text('close'); // Change to 'close' when open
+           // $(this).children("burgerICON").text('close'); // Change to 'close' when open
         }
     });
 
