@@ -226,6 +226,7 @@ xhttp.send();
 function handleResponse(xml) {
     const temperature = xml.getElementsByTagName('temperature')[0].getAttribute('value');
     const weatherDescription = xml.getElementsByTagName('weather')[0].getAttribute('value');
+    const weatherIcon=xml.getElementsByTagName('weather')[0].getAttribute('icon');
     const feelsLike=xml.getElementsByTagName('feels_like')[0].getAttribute('value');
     const city=xml.getElementsByTagName('city')[0].getAttribute('name');
 
@@ -239,6 +240,8 @@ function handleResponse(xml) {
     document.getElementById('cityBar').innerText=`City: ${city}`;
     document.getElementById('temperatureBar').innerText = `Temperature: ${tempCelcius}°C`;
     document.getElementById('feelsLikeBar').innerText = `Feels Like: ${feelsLikeCel}°C`;
+    document.getElementById('weatherIcon').innerText = `Icon: ${weatherIcon}°C`;
+
     console.log(weatherDescription);
     console.log(temperature);
 }
