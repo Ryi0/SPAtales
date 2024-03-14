@@ -5,6 +5,11 @@ function Start(onPhone) {
     $(".cocktailInfoPage").hide();
     if (!onPhone) {
         let navWidth = 5;
+        $('#chercher').on('keydown', function(e) {
+            if (e.key === 'Enter') {
+                ChercherRecette();
+            }
+        });
         $(".cocktails").on("mouseover", function () {
             navWidth = 13;
         });
