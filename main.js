@@ -240,7 +240,7 @@ function handleResponse(xml) {
     document.getElementById('cityBar').innerText=`City: ${city}`;
     document.getElementById('temperatureBar').innerText = `Temperature: ${tempCelcius}°C`;
     document.getElementById('feelsLikeBar').innerText = `Feels Like: ${feelsLikeCel}°C`;
-    document.getElementById('weatherIcon').innerText = `Icon: ${weatherIcon}°C`;
+    document.getElementById('weatherIcon').innerText = `Icon: ${weatherIcon}`;
 
     console.log(weatherDescription);
     console.log(temperature);
