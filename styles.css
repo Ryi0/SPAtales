@@ -109,7 +109,7 @@ main {
   filter: hue-rotate(30deg) saturate(0.75) brightness(8) opacity(1);
 }
 .nav-links:hover {
-
+  filter: hue-rotate(30deg) saturate(0.75) brightness(8) opacity(1);
 }
 
 .link-text {
@@ -398,6 +398,12 @@ main {
 }
 #CloseInfoPage:hover {
   background-color: #790c30;
+}
+
+#WeatherInfoInBar{
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
 }
 
 .ingredientsWrapper {
