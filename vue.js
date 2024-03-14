@@ -111,3 +111,14 @@ function FetchDrinks(category) {
     DrinkCaller();
     CloseNav();
 }
+
+/**
+ * TODO{REMOVE THIS}
+ *     <i class="material-symbols-outlined">menu</i>
+ *     <i class="material-symbols-outlined">home</i>
+ *     <i class="material-symbols-outlined">local_bar</i>
+ *     <i class="material-symbols-outlined">search</i>
+ *     <i class="material-symbols-outlined">sunny</i>
+ *     <i class="material-symbols-outlined">groups</i>
+ *     <i class="material-symbols-outlined"></i>
+ */

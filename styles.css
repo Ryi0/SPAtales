@@ -17,7 +17,12 @@
           'FILL' 0,
           'wght' 400,
           'GRAD' 0,
-          'opsz' 24
+          'opsz' 24;
+  font-size: 3rem;
+}
+i{
+  color: #790c30;
+  margin: 0 .25em;
 }
 
 body {
